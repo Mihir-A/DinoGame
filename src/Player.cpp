@@ -1,4 +1,5 @@
 #include "player.h"
+#include <iostream>
 
 Player::Player()
 {
@@ -37,13 +38,16 @@ void Player::movePos(float x, float y)
 
 void Player::update()
 {
-	if (animationFrame == 4) {
-		switch (textureNum) {
+	if (animationFrame >= 4 && jumping == false) {
+ 		switch (textureNum) {
 		case 0:
 			setTexture(1);
 			break;
 		case 1:
 			setTexture(0);
+			break;
+		default:
+			setTexture(1);
 			break;
 		}
 		animationFrame = 0;
@@ -51,7 +55,21 @@ void Player::update()
 	else {
 		animationFrame++;
 	}
+	 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (dino.getPosition().y == 95)) {
+		velocity = -13;
+		jumping = true;
+		setTexture(5);
+	}
 
-
+	if (((float)dino.getPosition().y + velocity) >= 95.0f){
+		dino.setPosition((float)dino.getPosition().x, 95);
+		velocity = 0;
+		jumping = false;
+	}
+	else {
+		dino.setPosition((float)dino.getPosition().x, (float)dino.getPosition().y + velocity);
+		velocity+= 1;
+	}
 }
 
