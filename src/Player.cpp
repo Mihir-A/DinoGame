@@ -1,5 +1,6 @@
 #include "player.h"
 #include <iostream>
+#include <SFML/Audio.hpp>
 
 Player::Player()
 {
@@ -10,6 +11,9 @@ Player::Player()
 	textures[3].loadFromFile("res/dino_ducking_1.png");
 	textures[4].loadFromFile("res/dino_ducking_2.png");
 	textures[5].loadFromFile("res/dino_jump.png");
+
+	jumpBuffer.loadFromFile("res/jump.wav");
+	jumpSound.setBuffer(jumpBuffer);
 
 	setPos(40.0f, 95.0f);
 }
@@ -60,6 +64,7 @@ void Player::update()
 		velocity = -13;
 		jumping = true;
 		setTexture(5);
+		jumpSound.play();
 	}
 
 	if (((float)dino.getPosition().y + velocity) >= 95.0f){

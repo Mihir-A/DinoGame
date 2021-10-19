@@ -1,5 +1,6 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include <SFML/Audio.hpp>
 #include <vector>
 
 
@@ -11,6 +12,8 @@ private:
 	bool jumping = false;
 	float velocity = 0;
 	std::vector<sf::Texture> textures;
+	sf::SoundBuffer jumpBuffer;
+	sf::Sound jumpSound;
 public:
 	sf::Sprite dino;
 	Player();
