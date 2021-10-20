@@ -1,4 +1,4 @@
-#include "player.h"
+#include "Player.h"
 #include <iostream>
 #include <SFML/Audio.hpp>
 
@@ -21,7 +21,7 @@ Player::Player()
 void Player::setTexture(int number)
 {
 	dino.setTexture(textures[number]);
-	dino.setScale(sf::Vector2f(0.5f, 0.5f));
+	dino.setScale(0.5f, 0.5f);
 	textureNum = number;
 }
 

@@ -164,12 +164,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\Score.cpp" />
     <ClCompile Include="src\Ground.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Enemy.h" />
     <ClInclude Include="include\Ground.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Score.h" />

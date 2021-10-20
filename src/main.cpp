@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Ground.h"
 #include "Score.h"
+#include "Enemy.h"
 
 
 int main() {
@@ -10,6 +11,8 @@ int main() {
 	Player dino;
 	Ground ground;
 	Score score;
+	Enemy enemy;
+
 	sf::Clock clock;
 	int dinoTexture = 0;
 
@@ -34,12 +37,14 @@ int main() {
 		dino.update();
 		ground.update();
 		score.update();
+		enemy.update();
 		
 		//Drawing
 		window.clear(sf::Color::White);
 		score.draw(window);
 		dino.draw(window);
 		ground.draw(window);
+		enemy.draw(window);
 		window.display();
 	}
 

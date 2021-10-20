@@ -1,5 +1,5 @@
 #include <iostream>
-#include "ground.h"
+#include "Ground.h"
 
 Ground::Ground()
 {
@@ -26,8 +26,8 @@ void Ground::update()
 	}
 	
 
-	ground1.move(-6.0f, 0.0f);
-	ground2.move(-6.0f, 0.0f);
+	ground1.move(speed, 0.0f);
+	ground2.move(speed, 0.0f);
 }
 
 

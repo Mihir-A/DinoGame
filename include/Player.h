@@ -14,8 +14,8 @@ private:
 	std::vector<sf::Texture> textures;
 	sf::SoundBuffer jumpBuffer;
 	sf::Sound jumpSound;
-public:
 	sf::Sprite dino;
+public:
 	Player();
 	void setTexture(int number);
 	void draw(sf::RenderWindow &window);
