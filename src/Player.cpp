@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Collision.h"
 #include <iostream>
 #include <SFML/Audio.hpp>
 
@@ -16,6 +17,7 @@ Player::Player()
 	jumpSound.setBuffer(jumpBuffer);
 
 	setPos(40.0f, 95.0f);
+	setTexture(1);
 }
 
 void Player::setTexture(int number)
@@ -75,6 +77,15 @@ void Player::update()
 	else {
 		dino.setPosition((float)dino.getPosition().x, (float)dino.getPosition().y + velocity);
 		velocity+= 1;
+	}
+}
+
+void Player::checkCollisons(Enemy& e)
+{
+	if (e.enemy1.getPosition().x < 125){
+		if (Collision::PixelPerfectTest(dino, e.enemy1)) {
+			std::cout << "woo";
+		}
 	}
 }
 

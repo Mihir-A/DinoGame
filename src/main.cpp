@@ -16,7 +16,7 @@ int main() {
 	sf::Clock clock;
 	int dinoTexture = 0;
 
-	dino.setTexture(1);
+
 	window.setFramerateLimit(60);
 
 	//Game Loop
@@ -38,6 +38,8 @@ int main() {
 		ground.update();
 		score.update();
 		enemy.update();
+
+		dino.checkCollisons(enemy);
 		
 		//Drawing
 		window.clear(sf::Color::White);

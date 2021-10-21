@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include <iostream>
 Enemy::Enemy()
 {
 	textures.resize(7);
@@ -9,16 +10,29 @@ Enemy::Enemy()
 	textures[4].loadFromFile("res/cactus-3b.png");
 	textures[5].loadFromFile("res/cactus-3s.png");
 	textures[6].loadFromFile("res/cactus-4b.png");
-
-	enemy1.setTexture(textures[0]);
+	
 	enemy1.setScale(0.5f, 0.5f);
+	enemy1.setTexture(textures[0], true);
 
-	enemy1.setPosition(648, 80);
+	enemy2.setScale(0.5f, 0.5f);
+	enemy2.setTexture(textures[1], true);
+
+	enemy1.setPosition(648, 144 - enemy1.getGlobalBounds().height);
+	enemy2.setPosition(1248, 144 - enemy2.getGlobalBounds().height);
 }
 
 void Enemy::update()
 {
+	if (enemy1.getPosition().x <= 0) {
+		enemy1.setPosition(1248, 144 - enemy1.getGlobalBounds().height);
+	}
+
+	if (enemy2.getPosition().x <= 0) {
+		enemy2.setPosition(1248, 144 - enemy2.getGlobalBounds().height);
+	}
+
 	enemy1.move(speed, 0);
+	enemy2.move(speed, 0);
 }
 
 void Enemy::draw(sf::RenderWindow& window)

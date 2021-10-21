@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include <SFML/Audio.hpp>
+#include "SFML/Audio.hpp"
+#include "Enemy.h"
 #include <vector>
 
 
@@ -22,6 +23,7 @@ public:
 	void setPos(float x, float y);
 	void movePos(float x, float y);
 	void update();
+	void checkCollisons(Enemy &e);
 
 };
 
