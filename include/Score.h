@@ -14,6 +14,6 @@ public:
 	Score();
 	void update();
 	void draw(sf::RenderWindow& window);
-
+	void reset();
 };
 

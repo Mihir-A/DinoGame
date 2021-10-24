@@ -52,3 +52,8 @@ void Score::draw(sf::RenderWindow& window)
 		window.draw(i);
 	}
 }
+
+void Score::reset()
+{
+	score = 0;
+}

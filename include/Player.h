@@ -15,6 +15,8 @@ private:
 	std::vector<sf::Texture> textures;
 	sf::SoundBuffer jumpBuffer;
 	sf::Sound jumpSound;
+	sf::SoundBuffer deathBuffer;
+	sf::Sound deathSound;
 	sf::Sprite dino;
 public:
 	Player();
@@ -23,7 +25,9 @@ public:
 	void setPos(float x, float y);
 	void movePos(float x, float y);
 	void update();
-	void checkCollisons(Enemy &e);
+	bool checkCollisons(Enemy &e);
+	void kill();
+	void reset();
 
 };
 

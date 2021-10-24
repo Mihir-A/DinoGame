@@ -13,9 +13,7 @@ int main() {
 	Score score;
 	Enemy enemy;
 
-	sf::Clock clock;
-	int dinoTexture = 0;
-
+	bool killed = false;
 
 	window.setFramerateLimit(60);
 
@@ -34,19 +32,32 @@ int main() {
 		}
 
 		//Updating
-		dino.update();
-		ground.update();
-		score.update();
-		enemy.update();
+		if (dino.checkCollisons(enemy) == false) {
+			dino.update();
+			ground.update();
+			score.update();
+			enemy.update();
+		}
+		else if (killed == false) {
+			dino.kill();
+			killed = true;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			dino.reset();
+			//ground.reset();
+			score.reset();
+			enemy.reset();
+			killed = false;
 
-		dino.checkCollisons(enemy);
-		
+		}
+
+
 		//Drawing
 		window.clear(sf::Color::White);
 		score.draw(window);
-		dino.draw(window);
 		ground.draw(window);
 		enemy.draw(window);
+		dino.draw(window);
 		window.display();
 	}
 

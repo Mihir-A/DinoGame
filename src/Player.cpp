@@ -16,6 +16,9 @@ Player::Player()
 	jumpBuffer.loadFromFile("res/jump.wav");
 	jumpSound.setBuffer(jumpBuffer);
 
+	deathBuffer.loadFromFile("res/death.wav");
+	deathSound.setBuffer(deathBuffer);
+
 	setPos(40.0f, 95.0f);
 	setTexture(1);
 }
@@ -80,12 +83,28 @@ void Player::update()
 	}
 }
 
-void Player::checkCollisons(Enemy& e)
+bool Player::checkCollisons(Enemy& e)
 {
 	if (e.enemy1.getPosition().x < 125){
 		if (Collision::PixelPerfectTest(dino, e.enemy1)) {
-			std::cout << "woo";
+			return 1;
 		}
 	}
+	if (e.enemy2.getPosition().x < 125) {
+		if (Collision::PixelPerfectTest(dino, e.enemy2)) {
+			return 1;
+		}
+	}
+	return 0;
 }
 
+void Player::kill() {
+	setTexture(2);
+	deathSound.play();
+}
+
+void Player::reset()
+{
+	setPos(40.0f, 95.0f);
+	setTexture(1);
+}

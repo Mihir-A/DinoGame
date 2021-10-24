@@ -40,3 +40,15 @@ void Enemy::draw(sf::RenderWindow& window)
 	window.draw(enemy1);
 	window.draw(enemy2);
 }
+
+void Enemy::reset()
+{
+	enemy1.setScale(0.5f, 0.5f);
+	enemy1.setTexture(textures[0], true);
+
+	enemy2.setScale(0.5f, 0.5f);
+	enemy2.setTexture(textures[1], true);
+
+	enemy1.setPosition(648, 144 - enemy1.getGlobalBounds().height);
+	enemy2.setPosition(1248, 144 - enemy2.getGlobalBounds().height);
+}

@@ -12,6 +12,7 @@ public:
 	void draw(sf::RenderWindow& window);
 	sf::Sprite enemy1;
 	sf::Sprite enemy2;
+	void reset();
 
 };
 
