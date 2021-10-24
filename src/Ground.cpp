@@ -30,4 +30,9 @@ void Ground::update()
 	ground2.move(speed, 0.0f);
 }
 
+void Ground::reset()
+{
+	speed = -6;
+}
+
 

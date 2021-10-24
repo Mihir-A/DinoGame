@@ -5,8 +5,8 @@ class Enemy
 {
 private:
 	std::vector<sf::Texture> textures;
-	int speed = -6;
 public:
+	int speed = -6;
 	Enemy();
 	void update();
 	void draw(sf::RenderWindow& window);

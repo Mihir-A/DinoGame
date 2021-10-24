@@ -6,10 +6,11 @@ private:
 	sf::Texture groundTexture;
 	sf::Sprite ground1;
 	sf::Sprite ground2;
-	int speed = -6;
 public:
+	int speed = -6;
 	Ground();
 	void draw(sf::RenderWindow &window);
 	void update();
+	void reset();
 };
 

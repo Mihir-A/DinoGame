@@ -26,24 +26,33 @@ Score::Score()
 		numbers[j].setScale(sf::Vector2f(0.5f, 0.5f));
 	}
 
+	speedUpBuffer.loadFromFile("res/speedUp.wav");
+	speedUp.setBuffer(speedUpBuffer);
+
+	highScoreFile.open("res/file.txt", );
+
 }
 
-void Score::update()
+bool Score::update()
 {
 	if (scoreUpdater == 6){
 		scoreUpdater = 0;
 		int digit;
 		score ++;
 
-
 		for (int i = 0; i < 5; i ++) {
 			digit = pow(10, i);
 			numbers[i].setTexture(numberTextures[(score/digit) % 10]);
+		}
+		if (score % 100 == 0 and score != 0) {
+			speedUp.play();
+			return 1;
 		}
 	}
 	else {
 		scoreUpdater++;
 	}
+	return 0;
 }
 
 void Score::draw(sf::RenderWindow& window)
@@ -56,4 +65,5 @@ void Score::draw(sf::RenderWindow& window)
 void Score::reset()
 {
 	score = 0;
+	scoreUpdater = 0;
 }

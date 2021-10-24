@@ -14,6 +14,7 @@ int main() {
 	Enemy enemy;
 
 	bool killed = false;
+	bool spaceReset = 0;
 
 	window.setFramerateLimit(60);
 
@@ -32,23 +33,31 @@ int main() {
 		}
 
 		//Updating
-		if (dino.checkCollisons(enemy) == false) {
+		if (dino.checkCollisons(enemy) == false and killed == false) {
 			dino.update();
 			ground.update();
-			score.update();
+			if (score.update() == true) {
+				ground.speed--;
+				enemy.speed--;
+			}
 			enemy.update();
 		}
 		else if (killed == false) {
 			dino.kill();
 			killed = true;
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			dino.reset();
-			//ground.reset();
-			score.reset();
-			enemy.reset();
-			killed = false;
-
+		else if (spaceReset != 2){//All to check if space has been released before reseting
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) == false) {
+				spaceReset = 1;
+			}
+			else if (spaceReset == 1 and sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+				dino.reset();
+				ground.reset();
+				score.reset();
+				enemy.reset();
+				killed = false;
+				spaceReset = 0;
+			}
 		}
 
 

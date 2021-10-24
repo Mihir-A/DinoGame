@@ -1,6 +1,9 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include <vector>
+#include <fstream>
+
 class Score
 {
 private:
@@ -9,10 +12,13 @@ private:
 	std::vector<sf::Texture> numberTextures;
 	int score = 0;
 	int scoreUpdater = 0;
+	sf::SoundBuffer speedUpBuffer;
+	sf::Sound speedUp;
+	std::ifstream highScoreFile;
 
 public:
 	Score();
-	void update();
+	bool update();
 	void draw(sf::RenderWindow& window);
 	void reset();
 };

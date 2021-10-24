@@ -1,7 +1,11 @@
 #include "Enemy.h"
+#include <time.h>
+#include <stdlib.h>
 #include <iostream>
 Enemy::Enemy()
 {
+	srand(time(NULL));
+
 	textures.resize(7);
 	textures[0].loadFromFile("res/cactus-1b.png");
 	textures[1].loadFromFile("res/cactus-1s.png");
@@ -23,11 +27,13 @@ Enemy::Enemy()
 
 void Enemy::update()
 {
-	if (enemy1.getPosition().x <= 0) {
+	if (enemy1.getPosition().x <= -(enemy1.getGlobalBounds().height)) {
+		enemy1.setTexture(textures[rand() % 6 + 0], true);
 		enemy1.setPosition(1248, 144 - enemy1.getGlobalBounds().height);
 	}
 
-	if (enemy2.getPosition().x <= 0) {
+	if (enemy2.getPosition().x <= -(enemy2.getGlobalBounds().height)) {
+		enemy2.setTexture(textures[rand() % 6 + 0], true);
 		enemy2.setPosition(1248, 144 - enemy2.getGlobalBounds().height);
 	}
 
@@ -51,4 +57,6 @@ void Enemy::reset()
 
 	enemy1.setPosition(648, 144 - enemy1.getGlobalBounds().height);
 	enemy2.setPosition(1248, 144 - enemy2.getGlobalBounds().height);
+	
+	speed = -6;
 }
