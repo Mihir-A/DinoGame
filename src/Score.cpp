@@ -1,11 +1,10 @@
 #include "Score.h"
-#include <math.h>
-#include <iostream>
 
 Score::Score()
 {
 	numberTextures.resize(10);
 	numbers.resize(5);
+	highScoreSprites.resize(5);
 
 	numberTextures[0].loadFromFile("res/0.png");
 	numberTextures[1].loadFromFile("res/1.png");
@@ -18,8 +17,6 @@ Score::Score()
 	numberTextures[8].loadFromFile("res/8.png");
 	numberTextures[9].loadFromFile("res/9.png");
 
-
-
 	for (int j = 0; j < numbers.size(); j++) {
 		numbers[j].setPosition((float)(580.0f - (13.0f * j)), 5.0f);
 		numbers[j].setTexture(numberTextures[0]);
@@ -29,8 +26,33 @@ Score::Score()
 	speedUpBuffer.loadFromFile("res/speedUp.wav");
 	speedUp.setBuffer(speedUpBuffer);
 
-	highScoreFile.open("res/file.txt", );
+	highScoreFile.open("res/highscore.data", std::fstream::in);
+	std::string highScoreStr;
+	highScoreFile >> highScoreStr;
 
+	if (highScoreStr.length() == 0) {
+		highScore = 0;
+	}
+	else {
+		try {
+			highScore = std::stoi(highScoreStr);
+		}
+		catch (...) {
+			highScore = 0;
+		}
+
+	}
+
+	int digit;
+
+	for (int j = 0; j < highScoreSprites.size(); j++) {
+		digit = pow(10, j);
+
+		highScoreSprites[j].setPosition((float)(100.0f - (13.0f * j)), 5.0f);
+		highScoreSprites[j].setTexture(numberTextures[(highScore / digit) % 10]);
+		highScoreSprites[j].setScale(sf::Vector2f(0.5f, 0.5f));
+		
+	}
 }
 
 bool Score::update()
@@ -57,8 +79,9 @@ bool Score::update()
 
 void Score::draw(sf::RenderWindow& window)
 {
-	for (sf::Sprite &i : numbers) {
-		window.draw(i);
+	for (int i = 0; i < numbers.size(); i++) {
+		window.draw(numbers[i]);
+		window.draw(highScoreSprites[i]);
 	}
 }
 
