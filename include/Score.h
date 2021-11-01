@@ -18,11 +18,14 @@ private:
 	sf::Sound speedUp;
 	std::fstream highScoreFile;
 	int highScore;
+	sf::Sprite hsImage;
+	sf::Texture hsTexture;
 
 public:
 	Score();
 	bool update();
 	void draw(sf::RenderWindow& window);
 	void reset();
+	void writeHs();
 };
 

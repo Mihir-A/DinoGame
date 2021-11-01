@@ -13,6 +13,15 @@ int main() {
 	Score score;
 	Enemy enemy;
 
+	sf::Texture gameOverTexture;
+	gameOverTexture.loadFromFile("res/game_over.png");
+
+	sf::Sprite gameOverSprite(gameOverTexture);
+
+	gameOverSprite.setScale(0.75f, 0.75f);
+
+	gameOverSprite.setPosition(160.0f, 50.0f);
+
 	bool killed = false;
 	bool spaceReset = 0;
 
@@ -27,6 +36,7 @@ int main() {
 			switch (evnt.type) {
 
 			case sf::Event::Closed:
+				score.writeHs();
 				window.close();
 				break;
 			}
@@ -45,8 +55,10 @@ int main() {
 		else if (killed == false) {
 			dino.kill();
 			killed = true;
+			score.writeHs();
+			
 		}
-		else if (spaceReset != 2){//All to check if space has been released before reseting
+		else//All to check if space has been released before reseting
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) == false) {
 				spaceReset = 1;
 			}
@@ -58,8 +70,6 @@ int main() {
 				killed = false;
 				spaceReset = 0;
 			}
-		}
-
 
 		//Drawing
 		window.clear(sf::Color::White);
@@ -67,6 +77,11 @@ int main() {
 		ground.draw(window);
 		enemy.draw(window);
 		dino.draw(window);
+
+		if (spaceReset != 0) {
+			window.draw(gameOverSprite);
+		}
+
 		window.display();
 	}
 

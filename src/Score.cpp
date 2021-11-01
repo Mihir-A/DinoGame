@@ -2,7 +2,12 @@
 
 Score::Score()
 {
-	numberTextures.resize(10);
+	hsTexture.loadFromFile("res/hi.png");
+	hsImage.setTexture(hsTexture);
+	hsImage.setScale(0.5, 0.5);
+	hsImage.setPosition(20.0f, 5.0f);
+
+	numberTextures.resize(25);
 	numbers.resize(5);
 	highScoreSprites.resize(5);
 
@@ -23,9 +28,6 @@ Score::Score()
 		numbers[j].setScale(sf::Vector2f(0.5f, 0.5f));
 	}
 
-	speedUpBuffer.loadFromFile("res/speedUp.wav");
-	speedUp.setBuffer(speedUpBuffer);
-
 	highScoreFile.open("res/highscore.data", std::fstream::in);
 	std::string highScoreStr;
 	highScoreFile >> highScoreStr;
@@ -42,17 +44,19 @@ Score::Score()
 		}
 
 	}
+	highScoreFile.close();
 
 	int digit;
-
 	for (int j = 0; j < highScoreSprites.size(); j++) {
 		digit = pow(10, j);
 
 		highScoreSprites[j].setPosition((float)(100.0f - (13.0f * j)), 5.0f);
 		highScoreSprites[j].setTexture(numberTextures[(highScore / digit) % 10]);
 		highScoreSprites[j].setScale(sf::Vector2f(0.5f, 0.5f));
-		
 	}
+
+	speedUpBuffer.loadFromFile("res/speedUp.wav");
+	speedUp.setBuffer(speedUpBuffer);
 }
 
 bool Score::update()
@@ -61,6 +65,14 @@ bool Score::update()
 		scoreUpdater = 0;
 		int digit;
 		score ++;
+
+		if (score >= highScore) {
+			highScore = score;
+			for (int i = 0; i < 5; i++) {
+				digit = pow(10, i);
+				highScoreSprites[i].setTexture(numberTextures[(highScore / digit) % 10]);
+			}
+		}
 
 		for (int i = 0; i < 5; i ++) {
 			digit = pow(10, i);
@@ -83,6 +95,7 @@ void Score::draw(sf::RenderWindow& window)
 		window.draw(numbers[i]);
 		window.draw(highScoreSprites[i]);
 	}
+	window.draw(hsImage);
 }
 
 void Score::reset()
@@ -90,3 +103,13 @@ void Score::reset()
 	score = 0;
 	scoreUpdater = 0;
 }
+
+void Score::writeHs()
+{
+	if (score >= highScore) {
+		highScoreFile.open("res/highscore.data", std::fstream::out);
+		highScoreFile << highScore;
+		highScoreFile.close();
+	}
+}
+
